@@ -1,0 +1,26 @@
+<?php
+
+header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+include_once '../config/database.php';
+
+include_once '../objects/usuario.php';
+
+$database = new DataBase();
+$connection = $database->getConnection();
+
+$chofer = new Usuario($connection);
+
+$data = json_decode(file_get_contents("php://input"));
+
+if($chofer->login()){
+    echo json_encode(array("message" => "Ha iniciado sesión correctamente."));
+}
+else{
+    echo json_encode(array("message" => "Usuario o Contrase".&ntilde;."a inválidos."));
+}
+
+?>

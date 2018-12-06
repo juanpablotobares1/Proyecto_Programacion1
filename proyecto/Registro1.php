@@ -1,4 +1,6 @@
 <?php  
+
+	session_start();
 	$servidor = 'localhost';
 	$usuario = 'juanpablo';
 	$clave = '9886398319';
@@ -25,6 +27,16 @@
 	$datos = array('vehiculo' => $vehiculo, 'empresa' => $empresa);
 
 	$sql = "INSERT INTO empresa_vehiculo (id_vehiculo, id_empresa) VALUES(:vehiculo, :empresa)";
+
+	$ejecsql = $conexion -> prepare($sql);
+	$ejecsql -> execute($datos);
+
+	$usr = $_SESSION['usr'];
+	$fecha = $_SESSION['fecha'];
+
+	$datos = array('fecha' => $fecha, 'usr' => $usr, 'tr' => $_SESSION['tiempo'], 'serv' => 'Registró Chofer');
+
+	$sql = "INSERT INTO auditoria ( fecha_acceso, usr, tiempo_respuesta, servicio_consumido) VALUES (:fecha, :usr, :tr, :serv)";
 
 	$ejecsql = $conexion -> prepare($sql);
 	$ejecsql -> execute($datos);

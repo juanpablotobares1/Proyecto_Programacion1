@@ -1,5 +1,13 @@
 <?php  
+	
+	function microtime_float(){
+    	list($usec, $sec) = explode(" ", microtime());
+    	return ((float)$usec + (float)$sec);
+	}
+
 	session_start();
+
+	$tiempo1 = microtime_float();
 
 	$servidor = 'localhost';
 	$usuario = 'juanpablo';
@@ -25,9 +33,12 @@
 
 	if ($c>0) {
 		$_SESSION['usr'] = $usr;
+		$tiempo2 = microtime_float();
+		$tiempo = $tiempo2 - $tiempo1;
 		$_SESSION['login'] = 1;
 		$_SESSION['fecha'] = $fecha;
-		header('location: Acceso.php');
+		$_SESSION['tiempo'] = $tiempo;
+		header('location: Home.php');
 	} else {
 		header('location: index.html');
 	}

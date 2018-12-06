@@ -62,7 +62,7 @@ h2 {
 <div class="panel panel-danger" id="margen" style="border-radius: 20px">
   <div class="panel-heading" style="border-radius: 20px"><center><h3>Registros <img src="imagenes/registro.png" class="icono2"></center></div>
   <table class="table">
-	<th>Usuario</th><th>Fecha de Acceso</th><th>Tiempo de Respuesta</th><th>Exportar datos</th>
+	<th>Usuario</th><th>Fecha de Acceso</th><th>Tiempo de Respuesta</th><th>Servicio Consumido</th><th>Exportar datos</th>
 	<?php  
 
 	$servidor = 'localhost';
@@ -72,7 +72,7 @@ h2 {
 
 	$conexion = new PDO("mysql:host=$servidor;dbname=$database",$usuario,$clave);
 
-	$sql = "SELECT id_auditoria, usr, fecha_acceso, tiempo_respuesta FROM auditoria";
+	$sql = "SELECT id_auditoria, usr, fecha_acceso, tiempo_respuesta, servicio_consumido FROM auditoria";
 
 
 	$ejecsql = $conexion -> prepare($sql);
@@ -84,7 +84,8 @@ h2 {
 		echo "<tr>";
 		echo "<td>".$value['usr']."</td>";
 		echo "<td>".$value['fecha_acceso']."</td>";
-		echo "<td>".$value['tiempo_respuesta']."</td>";
+		echo "<td>".$value['tiempo_respuesta']."s</td>";
+		echo "<td>".$value['servicio_consumido']."</td>";
 		echo "<td><a href='Descarga.php?id=".$value['id_auditoria']."'><img src='imagenes/descarga.png' class='icono'></a></td>";
 		echo "</tr>";
 	}

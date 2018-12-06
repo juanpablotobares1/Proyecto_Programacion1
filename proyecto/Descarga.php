@@ -7,14 +7,14 @@ $database = 'proyecto';
 
 $conexion = new PDO("mysql:host=$servidor;dbname=$database",$usuario,$clave);
 
-$sql = 'SELECT usr, fecha_acceso FROM auditoria WHERE id_auditoria='.$_GET['id'];
+$sql = 'SELECT usr, fecha_acceso, tiempo_respuesta, servicio_consumido FROM auditoria WHERE id_auditoria='.$_GET['id'];
 
 $ejecsql = $conexion -> prepare($sql);
 $ejecsql -> execute();
 
 $datos = $ejecsql -> fetch(PDO::FETCH_ASSOC);
 
-$exp = $datos['usr'] . " ; " . $datos['fecha_acceso'];
+$exp = "Usuario: ". $datos['usr'] . " | Fecha de acceso: " . $datos['fecha_acceso'] . " | Tiempo de respuesta: " . $datos['tiempo_respuesta'] . "s | Servicio consumido: " . $datos['servicio_consumido'];
 $_SESSION['exp'] = $exp;
 
 $archivo = fopen('usr.txt', 'w+');

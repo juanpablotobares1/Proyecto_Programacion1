@@ -24,7 +24,7 @@ $vehiculo->created = date('Y-m-d H:i:s');
 
 if($vehiculo->create()){
     echo '{';
-        echo '"message": "El vehiculo ha sido registrada."';
+        echo '"message": "El vehiculo ha sido registrado."';
     echo '}';
 }
 else{

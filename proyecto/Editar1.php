@@ -17,6 +17,17 @@ $sql = "UPDATE empresa_vehiculo SET id_vehiculo='" . $_POST['vehiculo'] . "',id_
 $ejecucionSQLPDO = $conexion->prepare($sql);
 $ejecucionSQLPDO->execute();
 
+	$usr = $_SESSION['usr'];
+	$fecha = $_SESSION['fecha'];
+	$tr = $_SESSION['tiempo'];
+
+	$datos = array('fecha' => $fecha, 'usr' => $usr, 'tr' => $tr, 'serv' => 'Modificó Chofer');
+
+	$sql = "INSERT INTO auditoria ( fecha_acceso, usr, tiempo_respuesta, servicio_consumido) VALUES (:fecha, :usr, :tr, :serv)";
+
+	$ejecsql = $conexion -> prepare($sql);
+	$ejecsql -> execute($datos);
+
 header('location: Administracion.php')
 
 ?>

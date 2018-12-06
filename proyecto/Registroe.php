@@ -64,48 +64,16 @@ h2 {
 	<div class="col-md-3"></div>
 	<div class="col-md-6">
 		<div style="background-color: #BCA9F5; border-radius: 20px;">
-			<form class="margen">
+			<form action="Registro1e.php" class="margen" method="POST">
 				<h1>Agregar Empresa</h1><br>
 				<table>
 					<tr><td><p>Empresa:</p></td><td><input id="empresa" type="text" name="empresa"></td></tr>
 					<tr><td><p>País de procedencia:</p></td><td><input id="pais" type="text" name="pais"></td></tr>
 				</table>
-				<button type="button" onclick="sendTheAJAX()">Registrar</button>
+				<input type="submit" name="enviar" value="Registrar">
 			</form>
 			</div>
 	</div>
 	<div class="col-md-3"></div>
 </body>
 </html>
-
-<script type="text/javascript">
-	// 1. create a new XMLHttpRequest object -- an object like any other!
-// 3. write a function that runs anytime the state of the AJAX request changes
-function sendTheAJAX() {
-
-	var empresa = document.getElementById('empresa').value;
-	var pais = document.getElementById('pais').value;
-	var data = new FormData();
-	data.append("empresa", empresa);
-	data.append("pais", pais);
-
-	var myRequest = new XMLHttpRequest();
-	// 2. open the request and pass the HTTP method name and the resource as parameters
-	myRequest.open('POST', 'Registro1e.php', true);
-
-	myRequest.send(data);
-
-	myRequest.onreadystatechange = function () { 
-    // 4. check if the request has a readyState of 4, which indicates the server has responded (complete)
-	    if (myRequest.readyState === 4) {
-
-	    	alert('Registro exitoso');
-
-	       window.location = 'Administracione.php';
-	    }
-	}
-
-	myRequest.send();
-    //document.getElementById('reveal').style.display = 'none';
-}
-</script>

@@ -22,36 +22,44 @@ class Chofer{
         $this->connection = $connection;
     }
 
-    //Crear chofer
-    function create(){
-
-        $query = "INSERT INTO " . $this->table_name . " SET apellido=:apellido, nombre=:nombre, dni=:dni, email=:email, id_vehiculo=:id_vehiculo, id_empresa=:id_empresa";
-
-        $stmt = $this->connection->prepare($query);
-
-        $this->apellido=strip_tags($this->apellido);
-        $this->nombre=strip_tags($this->nombre);
-        $this->dni=strip_tags($this->dni);
-        $this->email=strip_tags($this->email);
-        $this->id_vehiculo=strip_tags($this->id_vehiculo);
-        $this->id_empresa=strip_tags($this->id_empresa);
-        $this->created=strip_tags($this->created);
-        $this->updated=strip_tags($this->updated);
-      
-        $stmt->bindParam(":apellido", $this->apellido);
-        $stmt->bindParam(":nombre", $this->nombre);
-        $stmt->bindParam(":dni", $this->dni);
-        $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":id_vehiculo", $this->id_vehiculo);
-        $stmt->bindParam(":id_empresa", $this->id_empresa);
-        $stmt->bindParam(":created", $this->created);
-        $stmt->bindParam(":updated", $this->updated);
-      
-        if($stmt->execute()){
-            return true;
-        }
-        return false;
+// create chofer
+function create(){
+ 
+    // query to insert record
+    $query = "INSERT INTO
+                " . $this->table_name . "
+            SET
+                apellido=:apellido, nombre=:nombre, dni=:dni, email=:email, id_vehiculo=:id_vehiculo, id_empresa=:id_empresa, created=:created";
+ 
+    // prepare query
+    $stmt = $this->conn->prepare($query);
+ 
+    // sanitize
+    $this->apellido=htmlspecialchars(strip_tags($this->apellido));
+    $this->nombre=htmlspecialchars(strip_tags($this->nombre));
+    $this->dni=htmlspecialchars(strip_tags($this->dni));
+    $this->email=htmlspecialchars(strip_tags($this->email));
+    $this->id_vehiculo=htmlspecialchars(strip_tags($this->id_vehiculo));
+    $this->id_empresa=htmlspecialchars(strip_tags($this->id_empresa));
+    $this->created=htmlspecialchars(strip_tags($this->created));
+ 
+    // bind values
+    $stmt->bindParam(":apellido", $this->apellido);
+    $stmt->bindParam(":nombre", $this->nombre);
+    $stmt->bindParam(":dni", $this->dni);
+    $stmt->bindParam(":email", $this->email);
+    $stmt->bindParam(":id_vehiculo", $this->id_vehiculo);
+    $stmt->bindParam(":id_empresa", $this->id_empresa);
+    $stmt->bindParam(":created", $this->created);
+ 
+    // execute query
+    if($stmt->execute()){
+        return true;
     }
+ 
+    return false;
+     
+}
 
     //Leer Choferes
     function read(){
